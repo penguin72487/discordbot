@@ -5,7 +5,9 @@ from discord.ext import commands
 #client 是我們與 Discord 連結的橋樑
 client = discord.Client(intents=discord.Intents.default())
 bot= commands.Bot(intents=discord.Intents.default(),command_prefix='[')
-
+# intents = discord.Intents.default()
+# intents.message_content = True
+# client = discord.Client(intents=intents)
 #調用 event 函式庫
 @client.event
 #當機器人完成啟動時
@@ -21,6 +23,7 @@ async def on_message(message):
         return
     #如果包含 ping，機器人回傳 pong
     if message.content == 'ping':
+        #channel = client.get_channel(message.channel_id)
         await message.channel.send('pong')
         
         
