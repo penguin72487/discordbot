@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "main": "dcbot.js",
+    "type": "module"
+    
+  },  
+  "compilerOptions":
+    {
+      "target": "es2018",
+      "module": "es2020",
+      "outDir": "dist",
+      "sourceMap": true,
+      "allowJs": true,
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "strict": true
+    },
+  "include": ["./src"],
+  "exclude": ["node_modules"]
+}
