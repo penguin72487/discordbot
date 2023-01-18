@@ -6,13 +6,20 @@ const { token } = require('./config.json');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
+client.bottoms = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
     const command = require(filePath);
-    client.commands.set(command.data.name, command);
+    
+    try{
+		client.commands.set(command.data.name, command);
+	} catch(error){
+		//console.log(error);
+		console.log(`${file} can't be required`);
+	}
 }
 // When the client is ready, run this code (only once)
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
@@ -22,18 +29,50 @@ client.once(Events.ClientReady, c => {
 
 // Log in to Discord with your client's token
 client.on(Events.InteractionCreate, async interaction => {
-    if (!interaction.isChatInputCommand()) return;
+    //console.log(interaction);
+    if (interaction.isChatInputCommand()){
 
-    const command = client.commands.get(interaction.commandName);
+        const command = client.commands.get(interaction.commandName);
 
-    if (!command) return;
-
-    try {
-        await command.execute(interaction);
-    } catch (error) {
-        console.error(error);
-        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+        if (!command) return;
+        console.log(command);
+        try {
+            await command.execute(interaction);
+        } catch (error) {
+            console.error(error);
+            await interaction.reply({ content: 'There was an error while executing this command!', 
+            ephemeral: true });
+        }
     }
+    else if(interaction.isButton()) {
+        console.log(interaction);
+        const button = client.commands.get(interaction.customId);
+        if(!button) return;
+        console.log(button);
+
+        try{
+            await button.execute(interaction);
+        }catch(error){
+            console.error(error);
+            await interaction.reply({ content: 'There was an error while executing this command!', 
+            ephemeral: true });
+
+        }
+    }
+    else{
+        return;
+    }
+
 });
+
+// const bot = new Client();
+// bot.on(Events.ButtonPress, async buttonPressEvent => {
+//     const { customId } = buttonPressEvent;
+//     if (customId === 'Farm!') {
+//         await buttonPressEvent.respond('你按了鋤!!!');
+//     } else if (customId === 'WaitMore') {
+//         await buttonPressEvent.respond('你按了再等等');
+//     }
+// });
 
 client.login(token);
