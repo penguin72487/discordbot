@@ -6,9 +6,12 @@ const { token } = require('./config.json');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
-client.bottoms = new Collection();
+client.buttons = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+const buttonsPath = path.join(__dirname, 'buttons');
+const buttonFiles = fs.readdirSync(buttonsPath).filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
@@ -16,6 +19,17 @@ for (const file of commandFiles) {
     
     try{
 		client.commands.set(command.data.name, command);
+	} catch(error){
+		//console.log(error);
+		console.log(`${file} can't be required`);
+	}
+}
+for (const file of buttonFiles) {
+    const filePath = path.join(buttonsPath, file);
+    const button = require(filePath);
+    
+    try{
+		client.buttons.set(button.data.name,button);
 	} catch(error){
 		//console.log(error);
 		console.log(`${file} can't be required`);
@@ -46,7 +60,7 @@ client.on(Events.InteractionCreate, async interaction => {
     }
     else if(interaction.isButton()) {
         console.log(interaction);
-        const button = client.commands.get(interaction.customId);
+        const button = client.buttons.get(interaction.customId);
         if(!button) return;
         console.log(button);
 
