@@ -5,21 +5,22 @@ module.exports = {
 		.setName('鋤')
 		.setDescription('你想要鋤大地嗎?'),
 	async execute(interaction) {
-		const farm = new ActionRowBuilder()
+		farm = new ActionRowBuilder()
 		.addComponents(
 			new ButtonBuilder()
 				.setCustomId('Farm!')
 				.setLabel('鋤!!!')
 				.setStyle(ButtonStyle.Primary),
 		);
-        const wait = new ActionRowBuilder()
+        wait = new ActionRowBuilder()
         .addComponents(
             new ButtonBuilder()
                 .setCustomId('WaitMore')
                 .setLabel('再等等')
                 .setStyle(ButtonStyle.Secondary),
         );
-
-		await interaction.reply({ content: '想要鋤大地了嗎?', components: [farm,wait] });
-    },
+		await interaction.reply({ content: '想要鋤大地了嗎?', components: [farm,wait],fetchReply: true });
+		
+	},
+	
 };

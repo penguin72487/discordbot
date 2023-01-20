@@ -49,7 +49,7 @@ client.on(Events.InteractionCreate, async interaction => {
         const command = client.commands.get(interaction.commandName);
 
         if (!command) return;
-        console.log(command);
+        //console.log(command);
         try {
             await command.execute(interaction);
         } catch (error) {
@@ -59,10 +59,10 @@ client.on(Events.InteractionCreate, async interaction => {
         }
     }
     else if(interaction.isButton()) {
-        console.log(interaction);
+       // console.log(interaction);
         const button = client.buttons.get(interaction.customId);
         if(!button) return;
-        console.log(button);
+        //console.log(button);
 
         try{
             await button.execute(interaction);

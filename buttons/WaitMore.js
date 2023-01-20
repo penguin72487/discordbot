@@ -3,6 +3,8 @@ module.exports = {
         name : 'WaitMore'
     },
     async  execute(interaction) {
-        await interaction.reply("有人說再等等");
+
+        await interaction.message.delete();
+        await interaction.reply(`<@${interaction.user.id}> 說再等等`);
     }
 };
