@@ -18,22 +18,22 @@ for (const file of commandFiles) {
     const command = require(filePath);
     
     try{
-		client.commands.set(command.data.name, command);
-	} catch(error){
-		//console.log(error);
-		console.log(`${file} can't be required`);
-	}
+        client.commands.set(command.data.name, command);
+    } catch(error){
+        //console.log(error);
+        console.log(`${file} can't be required`);
+    }
 }
 for (const file of buttonFiles) {
     const filePath = path.join(buttonsPath, file);
     const button = require(filePath);
     
     try{
-		client.buttons.set(button.data.name,button);
-	} catch(error){
-		//console.log(error);
-		console.log(`${file} can't be required`);
-	}
+        client.buttons.set(button.data.name,button);
+    } catch(error){
+        //console.log(error);
+        console.log(`${file} can't be required`);
+    }
 }
 // When the client is ready, run this code (only once)
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
@@ -44,6 +44,18 @@ client.once(Events.ClientReady, c => {
 // Log in to Discord with your client's token
 client.on(Events.InteractionCreate, async interaction => {
     //console.log(interaction);
+
+    const userData = {
+        user_ID : `${interaction.user.id}`,
+        farming_Status : 0,
+        count_farmed : 0,
+        land_Farmed : 0
+    };
+    const userStatus = JSON.parse(fs.readFileSync('./userStatus.json', 'utf8'));
+    if (!(userStatus.find(data => data.user_ID === userData.user_ID))) {
+        userStatus.push(userData);
+        fs.writeFileSync('./userStatus.json', JSON.stringify(userStatus));
+    }
     if (interaction.isChatInputCommand()){
 
         const command = client.commands.get(interaction.commandName);
