@@ -91,14 +91,4 @@ client.on(Events.InteractionCreate, async interaction => {
 
 });
 
-// const bot = new Client();
-// bot.on(Events.ButtonPress, async buttonPressEvent => {
-//     const { customId } = buttonPressEvent;
-//     if (customId === 'Farm!') {
-//         await buttonPressEvent.respond('你按了鋤!!!');
-//     } else if (customId === 'WaitMore') {
-//         await buttonPressEvent.respond('你按了再等等');
-//     }
-// });
-
 client.login(token);
