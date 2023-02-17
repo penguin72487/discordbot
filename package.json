@@ -1,41 +1,5 @@
 {
   "dependencies": {
-    "discord.js": "^14.7.1",
-    "main": "dcbot.js",
-    "type": "module"
-  },
-  "compilerOptions": {
-    "target": "es2018",
-    "module": "es2020",
-    "outDir": "dist",
-    "sourceMap": true,
-    "allowJs": true,
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "strict": true
-  },
-  "include": [
-    "./src"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "name": "discordbot",
-  "description": "King of penguin",
-  "version": "1.0.0",
-  "main": "dcbot.js",
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/penguin72487/discordbot.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/penguin72487/discordbot/issues"
-  },
-  "homepage": "https://github.com/penguin72487/discordbot#readme"
+    "discord.js": "^14.7.1"
+  }
 }

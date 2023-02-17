@@ -18,22 +18,22 @@ for (const file of commandFiles) {
     const command = require(filePath);
     
     try{
-		client.commands.set(command.data.name, command);
-	} catch(error){
-		//console.log(error);
-		console.log(`${file} can't be required`);
-	}
+        client.commands.set(command.data.name, command);
+    } catch(error){
+        //console.log(error);
+        console.log(`${file} can't be required`);
+    }
 }
 for (const file of buttonFiles) {
     const filePath = path.join(buttonsPath, file);
     const button = require(filePath);
     
     try{
-		client.buttons.set(button.data.name,button);
-	} catch(error){
-		//console.log(error);
-		console.log(`${file} can't be required`);
-	}
+        client.buttons.set(button.data.name,button);
+    } catch(error){
+        //console.log(error);
+        console.log(`${file} can't be required`);
+    }
 }
 // When the client is ready, run this code (only once)
 // We use 'c' for the event parameter to keep it separate from the already defined 'client'
@@ -90,15 +90,5 @@ client.on(Events.InteractionCreate, async interaction => {
     }
 
 });
-
-// const bot = new Client();
-// bot.on(Events.ButtonPress, async buttonPressEvent => {
-//     const { customId } = buttonPressEvent;
-//     if (customId === 'Farm!') {
-//         await buttonPressEvent.respond('你按了鋤!!!');
-//     } else if (customId === 'WaitMore') {
-//         await buttonPressEvent.respond('你按了再等等');
-//     }
-// });
 
 client.login(token);
