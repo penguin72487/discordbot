@@ -44,6 +44,18 @@ client.once(Events.ClientReady, c => {
 // Log in to Discord with your client's token
 client.on(Events.InteractionCreate, async interaction => {
     //console.log(interaction);
+
+    const userData = {
+        user_ID : `${interaction.user.id}`,
+        farming_Status : 0,
+        count_farmed : 0,
+        land_Farmed : 0
+    };
+    const userStatus = JSON.parse(fs.readFileSync('./userStatus.json', 'utf8'));
+    if (!(userStatus.find(data => data.user_ID === userData.user_ID))) {
+        userStatus.push(userData);
+        fs.writeFileSync('./userStatus.json', JSON.stringify(userStatus));
+    }
     if (interaction.isChatInputCommand()){
 
         const command = client.commands.get(interaction.commandName);
