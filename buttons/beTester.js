@@ -1,3 +1,5 @@
+const {PermissionsBitField} = require('discord.js');
+
 module.exports = {
     data :{
         name : 'beTester'
@@ -8,7 +10,7 @@ module.exports = {
         const member = interaction.message.member;
       
         // 查找身分組
-        const role = guild.roles.cache.find(r => r.name === "botTester");
+        let role = guild.roles.cache.find(r => r.name === "botTester");
 
         // 如果身分組存在，則直接加入身分組
         if (role) {
@@ -16,7 +18,7 @@ module.exports = {
             .catch(console.error);
         } else {
           // 創建身分組
-          await guild.roles.create({
+          role = await guild.roles.create({
             data: {
               name: "botTester",
               color: "BLUE",
@@ -29,7 +31,8 @@ module.exports = {
                   "ADD_REACTIONS",
                   "SPEAK"
                 ]
-            }
+            },
+            reason: 'Test role'
           })
           .catch(console.error);
           await member.roles.add(role)
